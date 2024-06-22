@@ -18,34 +18,33 @@ USE `test_school`;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `classes`
+-- Table structure for table `enrollment`
 --
 
-DROP TABLE IF EXISTS `classes`;
+DROP TABLE IF EXISTS `enrollment`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `classes` (
-  `idClasses` int NOT NULL AUTO_INCREMENT,
-  `className` varchar(45) NOT NULL,
-  `classLevelIndex` smallint NOT NULL,
-  `t_id` int NOT NULL,
-  PRIMARY KEY (`idClasses`),
-  UNIQUE KEY `idClasses_UNIQUE` (`idClasses`),
-  UNIQUE KEY `t_id_UNIQUE` (`t_id`),
-  KEY `Department_FK_idx` (`className`),
-  CONSTRAINT `Department_FK` FOREIGN KEY (`className`) REFERENCES `department` (`Department`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `teacherID_FK` FOREIGN KEY (`t_id`) REFERENCES `teachers` (`t_id`)
+CREATE TABLE `enrollment` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `studentID` int NOT NULL,
+  `classID` int NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id_UNIQUE` (`id`),
+  KEY `enrollment_FK_idx` (`studentID`),
+  KEY `classID_FK_idx` (`classID`),
+  CONSTRAINT `classID_FK` FOREIGN KEY (`classID`) REFERENCES `classes` (`idClasses`),
+  CONSTRAINT `enrollment_FK` FOREIGN KEY (`studentID`) REFERENCES `students` (`StudentID`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `classes`
+-- Dumping data for table `enrollment`
 --
 
-LOCK TABLES `classes` WRITE;
-/*!40000 ALTER TABLE `classes` DISABLE KEYS */;
-INSERT INTO `classes` VALUES (1,'ENG',100,1000);
-/*!40000 ALTER TABLE `classes` ENABLE KEYS */;
+LOCK TABLES `enrollment` WRITE;
+/*!40000 ALTER TABLE `enrollment` DISABLE KEYS */;
+INSERT INTO `enrollment` VALUES (1,1000,1);
+/*!40000 ALTER TABLE `enrollment` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -57,4 +56,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-06-22 12:24:57
+-- Dump completed on 2024-06-22 12:24:58

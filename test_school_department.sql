@@ -1,3 +1,5 @@
+CREATE DATABASE  IF NOT EXISTS `test_school` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+USE `test_school`;
 -- MySQL dump 10.13  Distrib 8.0.36, for Win64 (x86_64)
 --
 -- Host: 127.0.0.1    Database: test_school
@@ -33,11 +35,10 @@ CREATE TABLE `department` (
 --
 -- Dumping data for table `department`
 --
--- ORDER BY:  `id`,`Department`
 
 LOCK TABLES `department` WRITE;
 /*!40000 ALTER TABLE `department` DISABLE KEYS */;
-INSERT INTO `department` VALUES (1,'ENG'),(2,'MATH'),(3,'SCI'),(4,'SOCS'),(5,'HIST');
+INSERT INTO `department` VALUES (1,'ENG'),(5,'HIST'),(2,'MATH'),(3,'SCI'),(4,'SOCS');
 /*!40000 ALTER TABLE `department` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -50,4 +51,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-06-13 14:36:33
+-- Dump completed on 2024-06-22 12:24:58

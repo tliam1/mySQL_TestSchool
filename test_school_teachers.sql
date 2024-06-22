@@ -1,3 +1,5 @@
+CREATE DATABASE  IF NOT EXISTS `test_school` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+USE `test_school`;
 -- MySQL dump 10.13  Distrib 8.0.36, for Win64 (x86_64)
 --
 -- Host: 127.0.0.1    Database: test_school
@@ -27,9 +29,11 @@ CREATE TABLE `teachers` (
   `FirstName` varchar(45) NOT NULL,
   `LastName` varchar(45) NOT NULL,
   `Department` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`id`,`LastName`,`FirstName`),
+  `t_id` int NOT NULL,
+  PRIMARY KEY (`id`,`LastName`,`FirstName`,`t_id`),
   UNIQUE KEY `id_UNIQUE` (`id`),
   UNIQUE KEY `FL_uniqueness` (`LastName`,`FirstName`),
+  UNIQUE KEY `t_id_UNIQUE` (`t_id`),
   KEY `Department_idx` (`Department`),
   CONSTRAINT `Department` FOREIGN KEY (`Department`) REFERENCES `department` (`Department`) ON DELETE SET NULL ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -38,13 +42,40 @@ CREATE TABLE `teachers` (
 --
 -- Dumping data for table `teachers`
 --
--- ORDER BY:  `id`,`LastName`,`FirstName`
 
 LOCK TABLES `teachers` WRITE;
 /*!40000 ALTER TABLE `teachers` DISABLE KEYS */;
-INSERT INTO `teachers` VALUES (1,'Jake','John','ENG');
+INSERT INTO `teachers` VALUES (1,'Jake','John','ENG',1000);
 /*!40000 ALTER TABLE `teachers` ENABLE KEYS */;
 UNLOCK TABLES;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `teacher_GET_NEW_TEACHER_ID` BEFORE INSERT ON `teachers` FOR EACH ROW BEGIN
+	DECLARE done INT DEFAULT FALSE;
+    DECLARE new_teacher_id INT;
+    REPEAT
+        SET new_teacher_id = FLOOR(1000 + RAND() * 9000); -- Generate random ID between 1000 and 9999
+
+        -- Check if ID already exists
+        IF NOT EXISTS (SELECT 1 FROM teachers WHERE t_id = new_teacher_id) THEN
+            SET done = TRUE;
+        END IF;
+    UNTIL done END REPEAT; -- until done is true, keep repeating
+
+    SET NEW.t_id = new_teacher_id; -- Assign the unique teacher to the new row
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -55,4 +86,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-06-13 14:36:33
+-- Dump completed on 2024-06-22 12:24:57

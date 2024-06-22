@@ -1,3 +1,5 @@
+CREATE DATABASE  IF NOT EXISTS `test_school` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+USE `test_school`;
 -- MySQL dump 10.13  Distrib 8.0.36, for Win64 (x86_64)
 --
 -- Host: 127.0.0.1    Database: test_school
@@ -23,25 +25,25 @@ DROP TABLE IF EXISTS `students`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `students` (
-  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `FirstName` varchar(45) NOT NULL,
   `LastName` varchar(45) NOT NULL,
-  `StudentID` int unsigned NOT NULL,
+  `StudentID` int NOT NULL,
   PRIMARY KEY (`id`,`StudentID`),
   UNIQUE KEY `id_UNIQUE` (`id`),
   UNIQUE KEY `StudentID_UNIQUE` (`StudentID`) /*!80000 INVISIBLE */,
-  UNIQUE KEY `FL_UNIQUE` (`LastName`,`FirstName`)
+  UNIQUE KEY `FL_UNIQUE` (`LastName`,`FirstName`),
+  KEY `studentID_Index` (`StudentID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `students`
 --
--- ORDER BY:  `id`,`StudentID`
 
 LOCK TABLES `students` WRITE;
 /*!40000 ALTER TABLE `students` DISABLE KEYS */;
-INSERT INTO `students` VALUES (1,'Liam','Tapper',1000),(2,'John','Doe',7056);
+INSERT INTO `students` VALUES (2,'John','Doe',7056),(1,'Liam','Tapper',1000);
 /*!40000 ALTER TABLE `students` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -82,4 +84,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-06-13 14:36:32
+-- Dump completed on 2024-06-22 12:24:58
